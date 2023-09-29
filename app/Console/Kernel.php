@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->everyMinute();
 
-        $schedule->command(CreateTournamentCommand::class)->everyFifteenMinutes();
+        $schedule->command(CreateTournamentCommand::class)->everyMinute();
         $schedule->command(RunTournamentCommand::class)->everyFiveMinutes();
     }
 

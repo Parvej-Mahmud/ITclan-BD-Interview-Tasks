@@ -6,6 +6,7 @@ use App\Models\Idea;
 use App\Models\Tournament;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class CreateTournamentCommand extends Command
 {
@@ -30,11 +31,11 @@ class CreateTournamentCommand extends Command
     {
         Log::info('CreateTournamentCommand Started');
 
-        $ideas = Idea::where('participated', false)
-                    ->oldest()
-                    ->limit(8)
-                    ->pluck('id')
-                    ->toArray();
+        $ideas = Idea::select(DB::raw('MIN(id) as min_id'))
+                ->where('participated', false)
+                ->groupBy('email')
+                ->pluck('min_id')
+                ->toArray();
 
         if (count($ideas) == 8) {
             Tournament::create([

@@ -29,4 +29,4 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout')->middleware('auth');
 });
 
-Route::resource('idea', IdeaController::class, ['store'])->only(['store'])->middleware('auth');
+Route::resource('idea', IdeaController::class)->only(['store'])->middleware('auth');
